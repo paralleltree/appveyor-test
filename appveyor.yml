@@ -1,0 +1,34 @@
+version: '{build}'
+os: Visual Studio 2015
+configuration: Release
+platform: Any CPU
+before_build:
+- ps: >-
+    nuget restore
+build:
+  project: AppveyorTest.sln
+  verbosity: minimal
+test_script:
+- ps: >-
+    $test_dll_dir = (Resolve-Path "*.Tests\bin\$env:CONFIGURATION").ToString()
+
+    $opencover = (Resolve-Path "packages\OpenCover.*\tools\OpenCover.Console.exe").ToString()
+
+    $runner = (Resolve-Path "packages\NUnit.ConsoleRunner.*\tools\nunit3-console.exe").ToString()
+
+    $targetargs = (Resolve-Path "$test_dll_dir\*.Tests.dll").ToString()
+
+
+
+    & $opencover -register:user "-target:$runner" "-targetargs:$targetargs" -returntargetcode -hideskipped:All -output:opencoverCoverage.xml
+
+    $env:Path = "C:\Python34;C:\Python34\Scripts;$env:Path"
+
+    python -m pip install --upgrade pip
+
+    pip install codecov
+
+    &{codecov -f "opencoverCoverage.xml"}
+artifacts:
+- path: AppveyorTest\bin\$(configuration)
+  name: package
