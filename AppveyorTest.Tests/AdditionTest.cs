@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using NUnit.Framework;
+using Xunit;
 using AppveyorTest;
 
 namespace AppveyorTest.Tests
@@ -19,15 +19,14 @@ namespace AppveyorTest.Tests
 
     }
 
-    [TestFixture]
     public abstract class MathTest<T>
     {
-        [Test]
-        [TestCase(0, 5)]
-        [TestCase(4, 9)]
+        [Theory]
+        [InlineData(4, 0)]
+        [InlineData(5, 4)]
         public void OperationTest(int a, int b)
         {
-            Assert.AreEqual(a + b, new Addition().Add(a, b));
+            Assert.Equal(a + b, new Addition().Add(a, b));
         }
     }
 }
