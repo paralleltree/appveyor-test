@@ -21,7 +21,7 @@ test_script:
     $filter = "+[*]AppveyorTest* -[*]AppveyorTest.Tests*"
 
 
-    & $opencover -register:user "-target:$runner" "-targetargs:$targetargs" "-filter:$filter" -returntargetcode -hideskipped:All -output:coverage.xml
+    & $opencover -register:user -target:nunit-console.exe "-targetargs:$targetargs" "-filter:$filter" -returntargetcode -hideskipped:All -output:coverage.xml
 
     $env:Path = "C:\Python34;C:\Python34\Scripts;$env:Path"
 
