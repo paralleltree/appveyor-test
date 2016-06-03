@@ -31,7 +31,7 @@ test_script:
 
     &{codecov -f "coverage.xml"}
 
-    dir C:\users\appveyor\pip
+    &{dir C:\Python27\lib}
 artifacts:
 - path: AppveyorTest\bin\$(configuration)
   name: package
