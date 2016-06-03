@@ -35,4 +35,4 @@ artifacts:
   name: package
 cache:
   - packages -> **\packages.config
-  - C:\Python27\lib -> appveyor.yml
+  - C:\Python27\lib\site-packages -> appveyor.yml
