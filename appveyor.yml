@@ -30,10 +30,9 @@ test_script:
     pip install codecov
 
     &{codecov -f "coverage.xml"}
-
-    &{dir C:\Python27\lib}
 artifacts:
 - path: AppveyorTest\bin\$(configuration)
   name: package
 cache:
   - packages -> **\packages.config
+  - C:\Python27\lib -> appveyor.yml
